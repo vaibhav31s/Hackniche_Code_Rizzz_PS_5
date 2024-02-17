@@ -9,6 +9,8 @@ import Images from "./screens/Images";
 import Volumes from "./screens/Volumes";
 import Info from "./components/Info";
 import Logs from "./components/Logs";
+import Stats from "./components/stats";
+
 export default function App() {
   const { user } = useAuthContext();
   const routes = createBrowserRouter([
@@ -37,6 +39,16 @@ export default function App() {
     {
       path:"/logs",
       element: <Logs />,
+      path: "/job",
+      element: <Job />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
+    {
+      path:"/stats",
+      element: <Stats />
     }
   ]);
 
