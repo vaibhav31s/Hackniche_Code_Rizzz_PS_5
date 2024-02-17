@@ -7,7 +7,8 @@ import DefaultLayout from "./layout/DefaultLayout";
 import Containers from "./screens/Containers";
 import Images from "./screens/Images";
 import Volumes from "./screens/Volumes";
-
+import Info from "./components/Info";
+import Logs from "./components/Logs";
 export default function App() {
   const { user } = useAuthContext();
   const routes = createBrowserRouter([
@@ -29,6 +30,14 @@ export default function App() {
         },
       ],
     },
+    {
+      path: "/info",
+      element: <Info />,
+    },
+    {
+      path:"/logs",
+      element: <Logs />,
+    }
   ]);
 
   return <RouterProvider router={routes} />;
