@@ -37,12 +37,6 @@ export default function App() {
       element: <Info />,
     },
     {
-      path:"/logs",
-      element: <Logs />,
-      path: "/job",
-      element: <Job />,
-    },
-    {
       path: "/register",
       element: <Register />,
     },
