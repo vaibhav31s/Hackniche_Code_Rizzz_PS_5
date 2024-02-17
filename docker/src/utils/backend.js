@@ -20,14 +20,21 @@ export async function createJob(position, location, date, tags, desc) {
 }
 
 export async function getJobs() {
-  try {
-    const res = await axios.get(
-      "/jobs/creator/" + encodeURI(localStorage.getItem("email"))
-    );
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+  
+  
+    return [
+      {
+        id: 1,
+        company: "Google",
+        position: "Software Engineer",
+        location: "Mountain View, CA",
+        date: "2021-05-01",
+        tags: ["Python", "Java", "C++"],
+        desc: "Work on the world's most advanced search engine.",
+        createdBy: "",
+      }
+    ];
+  
 }
 
 export async function getUsers(userIds) {
