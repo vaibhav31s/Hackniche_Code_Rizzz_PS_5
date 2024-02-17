@@ -104,6 +104,7 @@ const Containers = () => {
             <tbody>
               {containers.map((container) => (
                 <tr
+                  onClick={() => navigate(`/containers/${container._id}`)}
                   key={container._id}
                   className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/80 cursor-pointer"
                 >

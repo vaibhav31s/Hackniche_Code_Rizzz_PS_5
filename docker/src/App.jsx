@@ -1,8 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./screens/Home";
 import { useAuthContext } from "./context/AuthProvider";
-import Login from "./screens/Login";
-import Register from "./screens/Register";
 import DefaultLayout from "./layout/DefaultLayout";
 import Containers from "./screens/Containers";
 import Images from "./screens/Images";
@@ -10,6 +7,8 @@ import Volumes from "./screens/Volumes";
 import Info from "./components/Info";
 import Logs from "./components/Logs";
 import Stats from "./components/stats";
+
+import Container from "./screens/Container";
 
 export default function App() {
   const { user } = useAuthContext();
@@ -30,6 +29,10 @@ export default function App() {
           path: "/volumes",
           element: <Volumes />,
         },
+        {
+          path: "/containers/:id",
+          element: <Container />,
+        },
       ],
     },
     {
@@ -37,13 +40,9 @@ export default function App() {
       element: <Info />,
     },
     {
-      path: "/register",
-      element: <Register />,
+      path: "/logs",
+      element: <Logs />,
     },
-    {
-      path:"/stats",
-      element: <Stats />
-    }
   ]);
 
   return <RouterProvider router={routes} />;
