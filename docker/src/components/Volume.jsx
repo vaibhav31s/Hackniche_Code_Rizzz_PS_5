@@ -1,11 +1,11 @@
 import React from "react";
 import { containerData } from "../utils/backend";
 
-export const Container = () => {
+export const Volume = () => {
   return (
     <>
       <div className="text-black font-bold text-2xl my-4 py-4">
-        Containers{" "}
+        Volume{" "}
         <span className="ml-8 text-blue-600 font-semibold text-lg">
           Give Feedback
         </span>
