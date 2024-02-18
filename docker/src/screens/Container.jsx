@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import Logs from "../partials/Logs";
 import Inspect from "../partials/Inspect";
 import Stats from "../partials/Stats";
+import { useParams } from "react-router-dom";
 
 export default function Container() {
+  // from params
+  const { id } = useParams();
+
   const TabContent = {
-    logs: <Logs />,
+    logs: <Logs containerId={id} />,
     inspect: <Inspect />,
     stats: <Stats />,
   };

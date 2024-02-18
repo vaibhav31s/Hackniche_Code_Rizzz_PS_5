@@ -35,6 +35,11 @@ app.get("/container/:id", async (req, res) => {
 });
 
 app.get("/container/:id/stats", async (req, res) => {
+  const container = await docker.getContainer(req.params.id);
+  container.stats({ stream: false }, function (err, stream) {
+    res.send(stream);
+  });
+});
   try {
     const container = await docker.getContainer(req.params.id);
     container.stats({ stream: false }, function (err, stream) {
@@ -47,6 +52,24 @@ app.get("/container/:id/stats", async (req, res) => {
 });
 
 app.get("/container/:id/logs", async (req, res) => {
+  try {
+    const container = await docker.getContainer(req.params.id);
+    const logs = await container.logs({
+      stdout: true,
+      stderr: true,
+      follow: false,
+      timestamps: true,
+    });
+
+    console.log(logs.toString());
+
+    res.send(logs.toString());
+  } catch (err) {
+    console.log(err);
+
+    res.status(500).json({ message: "Error" });
+  }
+});
   try {
     const container = await docker.getContainer(req.params.id);
     container.logs({ stdout: true, stderr: true }, function (err, stream) {

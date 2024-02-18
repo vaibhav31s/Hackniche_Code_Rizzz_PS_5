@@ -1,90 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getLogs } from "../utils/backend";
 
-export default function Logs() {
+export default function Logs({ containerId }) {
+  const [logs, setLogs] = useState("");
+
+  useEffect(() => {
+    const fetchLogs = async () => {
+      const _logs = await getLogs(containerId);
+      setLogs(_logs);
+    };
+    const interval = setInterval(async () => {
+      fetchLogs();
+    }, 5000);
+
+    fetchLogs();
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="bg-black w-full h-full flex p-5 text-green-500 overflow-y-scroll">
-      2024-02-18 08:12:45 - INFO - User logged in successfully. 2024-02-18{" "}
-      <br />
-      08:15:23 - ERROR - Failed to connect to database server. 2024-02-18 <br />
-      08:18:59 - WARNING - Disk space is running low. 2024-02-18 08:21:34 - INFO{" "}
-      <br />- New user registered: John Doe. 2024-02-18 08:25:10 - DEBUG -
-      Processing <br />
-      request #12345. 2024-02-18 08:30:05 - ERROR - Internal server error <br />
-      occurred. 2024-02-18 08:35:19 - INFO - Database backup completed <br />
-      successfully. 2024-02-18 08:40:55 - WARNING - System temperature exceeds{" "}
-      <br />
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />
-      2024-02-18 08:12:45 - INFO - User logged in successfully. 2024-02-18{" "}
-      <br />
-      08:15:23 - ERROR - Failed to connect to database server. 2024-02-18 <br />
-      08:18:59 - WARNING - Disk space is running low. 2024-02-18 08:21:34 - INFO{" "}
-      <br />- New user registered: John Doe. 2024-02-18 08:25:10 - DEBUG -
-      Processing <br />
-      request #12345. 2024-02-18 08:30:05 - ERROR - Internal server error <br />
-      occurred. 2024-02-18 08:35:19 - INFO - Database backup completed <br />
-      successfully. 2024-02-18 08:40:55 - WARNING - System temperature exceeds{" "}
-      <br />
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />{" "}
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />
-      2024-02-18 08:12:45 - INFO - User logged in successfully. 2024-02-18{" "}
-      <br />
-      08:15:23 - ERROR - Failed to connect to database server. 2024-02-18 <br />
-      08:18:59 - WARNING - Disk space is running low. 2024-02-18 08:21:34 - INFO{" "}
-      <br />- New user registered: John Doe. 2024-02-18 08:25:10 - DEBUG -
-      Processing <br />
-      request #12345. 2024-02-18 08:30:05 - ERROR - Internal server error <br />
-      occurred. 2024-02-18 08:35:19 - INFO - Database backup completed <br />
-      successfully. 2024-02-18 08:40:55 - WARNING - System temperature exceeds{" "}
-      <br />
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />{" "}
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />
-      2024-02-18 08:12:45 - INFO - User logged in successfully. 2024-02-18{" "}
-      <br />
-      08:15:23 - ERROR - Failed to connect to database server. 2024-02-18 <br />
-      08:18:59 - WARNING - Disk space is running low. 2024-02-18 08:21:34 - INFO{" "}
-      <br />- New user registered: John Doe. 2024-02-18 08:25:10 - DEBUG -
-      Processing <br />
-      request #12345. 2024-02-18 08:30:05 - ERROR - Internal server error <br />
-      occurred. 2024-02-18 08:35:19 - INFO - Database backup completed <br />
-      successfully. 2024-02-18 08:40:55 - WARNING - System temperature exceeds{" "}
-      <br />
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />{" "}
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />
-      2024-02-18 08:12:45 - INFO - User logged in successfully. 2024-02-18{" "}
-      <br />
-      08:15:23 - ERROR - Failed to connect to database server. 2024-02-18 <br />
-      08:18:59 - WARNING - Disk space is running low. 2024-02-18 08:21:34 - INFO{" "}
-      <br />- New user registered: John Doe. 2024-02-18 08:25:10 - DEBUG -
-      Processing <br />
-      request #12345. 2024-02-18 08:30:05 - ERROR - Internal server error <br />
-      occurred. 2024-02-18 08:35:19 - INFO - Database backup completed <br />
-      successfully. 2024-02-18 08:40:55 - WARNING - System temperature exceeds{" "}
-      <br />
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />{" "}
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />
-      2024-02-18 08:12:45 - INFO - User logged in successfully. 2024-02-18{" "}
-      <br />
-      08:15:23 - ERROR - Failed to connect to database server. 2024-02-18 <br />
-      08:18:59 - WARNING - Disk space is running low. 2024-02-18 08:21:34 - INFO{" "}
-      <br />- New user registered: John Doe. 2024-02-18 08:25:10 - DEBUG -
-      Processing <br />
-      request #12345. 2024-02-18 08:30:05 - ERROR - Internal server error <br />
-      occurred. 2024-02-18 08:35:19 - INFO - Database backup completed <br />
-      successfully. 2024-02-18 08:40:55 - WARNING - System temperature exceeds{" "}
-      <br />
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />{" "}
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />
-      2024-02-18 08:12:45 - INFO - User logged in successfully. 2024-02-18{" "}
-      <br />
-      08:15:23 - ERROR - Failed to connect to database server. 2024-02-18 <br />
-      08:18:59 - WARNING - Disk space is running low. 2024-02-18 08:21:34 - INFO{" "}
-      <br />- New user registered: John Doe. 2024-02-18 08:25:10 - DEBUG -
-      Processing <br />
-      request #12345. 2024-02-18 08:30:05 - ERROR - Internal server error <br />
-      occurred. 2024-02-18 08:35:19 - INFO - Database backup completed <br />
-      successfully. 2024-02-18 08:40:55 - WARNING - System temperature exceeds{" "}
-      <br />
-      threshold. 2024-02-18 08:45:42 - INFO - User session expired. <br />
+    <div className="bg-black w-full h-full flex p-5  overflow-y-scroll">
+      {/* maintain the color of the logs for errors and utf-8 */}
+      <pre className="text-white">{logs}</pre>
     </div>
   );
 }

@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
-import { getContainers } from "../utils/backend";
+import {
+  getContainers,
+  killContainer,
+  pauseContainer,
+  removeContainer,
+  startContainer,
+} from "../utils/backend";
 
-import { FaPlay, FaPause } from "react-icons/fa";
 const Containers = () => {
   const navigate = useNavigate();
   const [containers, setContainers] = useState([]);
@@ -15,10 +20,10 @@ const Containers = () => {
       setContainers(_containers);
       console.log(_containers);
     };
+
     fetchContainer();
   }, []);
 
-  
   if (loading) <Loader />;
 
   return (
@@ -106,15 +111,15 @@ const Containers = () => {
             <tbody>
               {containers.map((container) => (
                 <tr
-                  onClick={() => navigate(`/containers/${container._id}`)}
-                  key={container._id}
+                  key={container.Id}
                   className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/80 cursor-pointer"
                 >
                   <th
+                    onClick={() => navigate(`/containers/${container.Id}`)}
                     scope="row"
                     className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    {container.Names[0]}
+                    {container.Names[0].replace("/", "")}
                   </th>
                   <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
                     {container.Image}
@@ -130,85 +135,52 @@ const Containers = () => {
                   </td>
 
                   <td className="px-4 py-3 space-x-2 flex items-center justify-end">
-
-                    
-
-
-
-                    {/* Start Button */}
-                    
-                     {
-                      (container.State === "running") ? 
+                    {container.State !== "running" ? (
                       <button
-                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
-                      type="button"
-                      title="Team"
-                      
-                    >
-                        <FaPause
-                        onClick={async() =>
-                          // navigate(`/stats`)
-                          await fetch(`http://localhost:5000/containers/${container.Id}/stop`, {
-                            method: "POST",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                          }).then((res) => res.json())
-                          .catch((err) => console.log(err))
-
-                          // window.location.reload()
-                        }
-                        
-                        />
-                        </button>
-                        : 
-                    
-                       <button
-                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
-                      type="button"
-                      title="Team"
-                      
-                    >
-                        <FaPlay
-                        onClick={() =>
-                          navigate(`/info`)
-                        }
-                        
-                        />
-                        </button>
-                        
-                      
-                    }
-               
-
-                    {/* Stop Button */}
-                    <button
-                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
-                      type="button"
-                      title="Schedule"
-                      onClick={() =>
-                        navigate(`/tournaments/${tournament._id}/group`, {
-                          state: { tournament },
-                        })
-                      }
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 -960 960 960"
-                        fill="currentColor"
-                        className="w-5 h-5 fill-gray-600 dark:fill-gray-50"
+                        className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
+                        type="button"
+                        title="Team"
+                        onClick={() => {
+                          startContainer(container.Id);
+                        }}
                       >
-                        <path d="M240-240v-480h480v480H240Z" />
-                      </svg>
-                    </button>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 -960 960 960"
+                          fill="currentColor"
+                          className="w-5 h-5 fill-gray-600 dark:fill-gray-50"
+                        >
+                          <path d="M320-200v-560l440 280-440 280Z" />
+                        </svg>
+                      </button>
+                    ) : (
+                      <button
+                        className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
+                        type="button"
+                        onClick={() => {
+                          console.log(container.Id);
+                          pauseContainer(container.Id);
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 -960 960 960"
+                          fill="currentColor"
+                          className="w-5 h-5 fill-gray-600 dark:fill-gray-50"
+                        >
+                          <path d="M240-240v-480h480v480H240Z" />
+                        </svg>
+                      </button>
+                    )}
+
                     {/* Delete Button */}
                     <button
                       className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600 text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
                       type="button"
                       title="Edit"
-                      onClick={() =>
-                        navigate(`/tournaments/${tournament._id}/edit`)
-                      }
+                      onClick={() => {
+                        killContainer(container.Id);
+                      }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
