@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -34,7 +34,9 @@ const Stat = ({
 }) => {
   return (
     <div style={{ width: "100%" }}>
-      <h1 className="text-2xl font-semibold mb-5">{title}</h1>
+      <h1 className="text-xl font-semibold mb-5">
+        {title}: {data[data.length - 1]?.uv}
+      </h1>
       <ResponsiveContainer width="100%" height={350}>
         <LineChart
           width={500}
@@ -54,9 +56,9 @@ const Stat = ({
           <Line
             connectNulls
             type="monotone"
-            dataKey="uv"
-            stroke="#8884d8"
-            fill="#8884d8"
+            dataKey="usage"
+            stroke="#00ff1e"
+            fill="#00ff1e"
           />
         </LineChart>
       </ResponsiveContainer>

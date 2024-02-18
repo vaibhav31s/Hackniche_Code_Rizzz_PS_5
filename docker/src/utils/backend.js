@@ -200,3 +200,12 @@ export const getInspect = async (id) => {
     console.log(err);
   }
 };
+
+export const getStats = async (id) => {
+  try {
+    const response = await axios.get(`/container/${id}/stats`);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

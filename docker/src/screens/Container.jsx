@@ -10,8 +10,8 @@ export default function Container() {
 
   const TabContent = {
     logs: <Logs containerId={id} />,
-    inspect: <Inspect />,
-    stats: <Stats />,
+    inspect: <Inspect containerId={id} />,
+    stats: <Stats containerId={id} />,
   };
 
   const [activeTab, setActiveTab] = useState("logs");
