@@ -3,6 +3,7 @@ import { useAuthContext } from "./context/AuthProvider";
 import DefaultLayout from "./layout/DefaultLayout";
 import Containers from "./screens/Containers";
 import Images from "./screens/Images";
+import Image from "./screens/Image"
 import Volumes from "./screens/Volumes";
 import Info from "./components/Info";
 import Logs from "./components/Logs";
@@ -34,6 +35,10 @@ export default function App() {
           path: "/containers/:id",
           element: <Container />,
         },
+        {
+          path: "/images/:id",
+          element: <Image/>
+        }
       ],
     },
     {
