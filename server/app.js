@@ -32,6 +32,61 @@ app.get("/container/:id/stats", async (req, res) => {
 }
 );
 
+
+app.get("/container/:id/logs", async (req, res) => {
+  const container = await docker.getContainer(req.params.id);
+  container.logs({ stdout: true, stderr: true }, function (err, stream) {
+    res.send(stream);
+  });
+}
+);
+
+
+app.get("/container/:id/top", async (req, res) => {
+  const container = await docker.getContainer(req.params.id);
+  container.top(function (err, data) {
+    res.send(data);
+  });
+}
+);
+
+app.get("/container/:id/inspect", async (req, res) => {
+  const container = await docker.getContainer(req.params.id);
+  container.inspect(function (err, data) {
+    res.send(data);
+  });
+}
+);
+
+app.get("/container/:id/changes", async (req, res) => {
+  const container = await docker.getContainer(req.params.id);
+  container.changes(function (err, data) {
+    res.send(data);
+  });
+}
+);
+//exec
+app.post("/container/:id/exec", async (req, res) => {
+  const container = await docker.getContainer(req.params.id);
+  container.exec({ Cmd: ["ls", "-la"] }, function (err, exec) {
+    exec.start({ hijack: true, stdin: true }, function (err, stream) {
+      res.send(stream);
+    });
+  });
+}
+);
+
+//files
+app.get("/container/:id/files", async (req, res) => {
+  const container = await docker.getContainer(req.params.id);
+  container.getArchive({ path: "/etc/hosts" }, function (err, stream) {
+    res.send(stream);
+  }
+  );
+}
+);
+
+
 app.post("/container/:id/start", async (req, res) => {  
   const container = await docker.getContainer(req.params.id);
   container.start(function (err, data) {
