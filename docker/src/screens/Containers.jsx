@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { getContainers } from "../utils/backend";
 
+import { FaPlay, FaPause } from "react-icons/fa";
 const Containers = () => {
   const navigate = useNavigate();
   const [containers, setContainers] = useState([]);
@@ -17,6 +18,7 @@ const Containers = () => {
     fetchContainer();
   }, []);
 
+  
   if (loading) <Loader />;
 
   return (
@@ -104,6 +106,7 @@ const Containers = () => {
             <tbody>
               {containers.map((container) => (
                 <tr
+                  onClick={() => navigate(`/containers/${container._id}`)}
                   key={container._id}
                   className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/80 cursor-pointer"
                 >
@@ -127,24 +130,56 @@ const Containers = () => {
                   </td>
 
                   <td className="px-4 py-3 space-x-2 flex items-center justify-end">
+
+                    
+
+
+
                     {/* Start Button */}
-                    <button
+                    
+                     {
+                      (container.State === "running") ? 
+                      <button
                       className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
                       type="button"
                       title="Team"
-                      onClick={() =>
-                        navigate(`/tournaments/${tournament._id}/teams`)
-                      }
+                      
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 -960 960 960"
-                        fill="currentColor"
-                        className="w-5 h-5 fill-gray-600 dark:fill-gray-50"
-                      >
-                        <path d="M320-200v-560l440 280-440 280Z" />
-                      </svg>
-                    </button>
+                        <FaPause
+                        onClick={async() =>
+                          // navigate(`/stats`)
+                          await fetch(`http://localhost:5000/containers/${container.Id}/stop`, {
+                            method: "POST",
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                          }).then((res) => res.json())
+                          .catch((err) => console.log(err))
+
+                          // window.location.reload()
+                        }
+                        
+                        />
+                        </button>
+                        : 
+                    
+                       <button
+                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
+                      type="button"
+                      title="Team"
+                      
+                    >
+                        <FaPlay
+                        onClick={() =>
+                          navigate(`/info`)
+                        }
+                        
+                        />
+                        </button>
+                        
+                      
+                    }
+               
 
                     {/* Stop Button */}
                     <button

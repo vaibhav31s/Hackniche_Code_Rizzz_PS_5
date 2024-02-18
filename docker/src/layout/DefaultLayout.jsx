@@ -8,13 +8,13 @@ const DefaultLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 h-screen">
+    <div className="bg-gray-100 dark:bg-gray-900">
       <Toaster position="bottom-right" />
       <Sidebar
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
       />
-      <div className="sm:ml-64">
+      <div className="sm:ml-64 ">
         <Header
           setIsSidebarOpen={setIsSidebarOpen}
           isSidebarOpen={isSidebarOpen}
