@@ -14,7 +14,7 @@ app.use(
 app.get("/containers", async (req, res) => {
   try {
     await docker.listContainers({ all: true }, function (err, containers) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(containers);
   })
     
@@ -27,7 +27,7 @@ app.get("/container/:id", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.inspect(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -39,7 +39,7 @@ app.get("/container/:id/stats", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.stats({ stream: false }, function (err, stream) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(stream);
     });
   } catch (error) {
@@ -71,7 +71,7 @@ app.get("/container/:id/top", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.top(function (err, data) {
-      if (err) throw err;
+      if (err)res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -83,7 +83,7 @@ app.get("/container/:id/inspect", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.inspect(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -95,7 +95,7 @@ app.get("/container/:id/changes", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.changes(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -108,9 +108,9 @@ app.post("/container/:id/exec", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.exec({ Cmd: ["ls", "-la"] }, function (err, exec) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       exec.start({ hijack: true, stdin: true }, function (err, stream) {
-        if (err) throw err;
+        if (err)res.send({ error: err.message });
         res.send(stream);
       });
     });
@@ -133,7 +133,7 @@ app.post("/container/:id/start", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.start(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -145,7 +145,7 @@ app.post("/container/:id/stop", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.stop(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -157,7 +157,7 @@ app.post("/container/:id/restart", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.restart(function (err, data) {
-      if (err) throw err;
+      if (err)res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -169,7 +169,7 @@ app.post("/container/:id/kill", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.kill(function (err, data) {
-      if (err) throw err;
+      if (err)res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -181,7 +181,7 @@ app.post("/container/:id/pause", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.pause(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -193,7 +193,7 @@ app.post("/container/:id/delete", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.remove(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -204,7 +204,7 @@ app.post("/container/:id/delete", async (req, res) => {
 app.get("/images", async (req, res) => {
   try {
     await docker.listImages(function (err, images) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(images);
     });
   } catch (error) {
@@ -216,7 +216,7 @@ app.get("/image/:id", async (req, res) => {
   try {
     const image = await docker.getImage(req.params.id);
     image.inspect(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -228,7 +228,7 @@ app.get("/image/:id/history", async (req, res) => {
   try {
     const image = await docker.getImage(req.params.id);
     image.history(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -240,7 +240,7 @@ app.get("/image/:id/inspect", async (req, res) => {
   try {
     const image = await docker.getImage(req.params.id);
     image.inspect(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -252,7 +252,7 @@ app.get("/image/:id/layers", async (req, res) => {
   try {
     const image = await docker.getImage(req.params.id);
     image.history(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) {
@@ -263,7 +263,7 @@ app.get("/image/:id/layers", async (req, res) => {
 app.get("/volumes", async (req, res) => {
   try {
     await docker.listVolumes(function (err, volumes) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(volumes);
     });
   } catch (error) {
@@ -275,7 +275,7 @@ app.get("/volume/:id", async (req, res) => {
   try {
     const volume = await docker.getVolume(req.params.id);
     volume.inspect(function (err, data) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(data);
     });
   } catch (error) { 
@@ -287,7 +287,7 @@ app.get("/volume/:id", async (req, res) => {
 app.get("/info", async (req, res) => {
   try {
     await docker.info(function (err, info) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(info);
     });
   } catch (error) {
@@ -298,7 +298,7 @@ app.get("/info", async (req, res) => {
 app.get("/version", async (req, res) => {
   try {
     await docker.version(function (err, version) {
-      if (err) throw err;
+      if (err) res.send({ error: err.message });
       res.send(version);
     });
   } catch (error) {
