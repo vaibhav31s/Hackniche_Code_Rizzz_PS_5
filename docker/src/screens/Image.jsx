@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getLayers } from "../utils/backend";
+import { getImage , getLayer} from "../utils/backend";
 
 const Image = () => {
   const { id } = useParams();
   const [layers, setlayers] = useState([]);
-
   useEffect(() => {
-    let _layer = getLayers();
-    setlayers(_layer);
-    console.log(_layer);
-  });
+    const fetchLayers = async () => {
+      try {
+        const _layer = await getLayer(id);
+        setlayers(_layer);
+        console.log(_layer);
+      } catch (error) {
+        console.error("Error fetching layers:", error);
+      }
+    };
+  
+    fetchLayers();
+  }, [id]);
   return (
     <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
+
       <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg ">
+        Container Id : {id}
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -34,7 +43,7 @@ const Image = () => {
               </tr>
             </thead>
             <tbody>
-              {layers.map((layer) => (
+              {layers.map((layer, id) => (
                 <tr
                   key={layer.Id}
                   className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/80 cursor-pointer"

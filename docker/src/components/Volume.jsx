@@ -34,7 +34,7 @@ export const Volume = () => {
             </tr>
           </thead>
           <tbody>
-            {containerData.map((data) => (
+            {/* {containerData.map((data) => (
               <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th
                   scope="row"
@@ -54,7 +54,7 @@ export const Volume = () => {
                   </a>
                 </td>
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </table>
       </div>

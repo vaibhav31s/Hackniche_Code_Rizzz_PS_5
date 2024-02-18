@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import ContainersDetails from "../components/ContainersDetails";
 import { toast } from "react-toastify";
+import { FaPause , FaPlay} from "react-icons/fa";
+
 
 import {
   getContainers,
@@ -162,14 +164,8 @@ const Containers = () => {
                           startContainer(container.Id);
                         }}
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 -960 960 960"
-                          fill="currentColor"
-                          className="w-5 h-5 fill-gray-600 dark:fill-gray-50"
-                        >
-                          <path d="M320-200v-560l440 280-440 280Z" />
-                        </svg>
+                    <FaPlay />
+
                       </button>
                     ) : (
                       <button
@@ -180,14 +176,7 @@ const Containers = () => {
                           pauseContainer(container.Id);
                         }}
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 -960 960 960"
-                          fill="currentColor"
-                          className="w-5 h-5 fill-gray-600 dark:fill-gray-50"
-                        >
-                          <path d="M240-240v-480h480v480H240Z" />
-                        </svg>
+                       <FaPause/>
                       </button>
                     )}
 
