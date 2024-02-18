@@ -32,21 +32,36 @@ const Containers = () => {
       setInfo(_info);
     };
 
+    const interval = setInterval(() => {
+      fetchContainer();
+    }, 3000);
+
     fetchContainer();
+
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) <Loader />;
 
-  
   return (
     <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
       <div className="flex items-center justify-between pb-10">
-        <ContainersDetails  text={"Total No of Containers"} count={info.Containers}/>  
-        <ContainersDetails  text={"Total No of Running Containers"} count={info.ContainersRunning}/>  
-        <ContainersDetails  text={"Total No of Stopped Containers"} count={info.ContainersStopped}/>  
-        <ContainersDetails  text={"Total No of Pause Containers"} count={info.ContainersPaused}/>  
-
-  
+        <ContainersDetails
+          text={"Total No of Containers"}
+          count={info.Containers}
+        />
+        <ContainersDetails
+          text={"Total No of Running Containers"}
+          count={info.ContainersRunning}
+        />
+        <ContainersDetails
+          text={"Total No of Stopped Containers"}
+          count={info.ContainersStopped}
+        />
+        <ContainersDetails
+          text={"Total No of Pause Containers"}
+          count={info.ContainersPaused}
+        />
       </div>
       <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg ">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
