@@ -10,15 +10,19 @@ const Volumes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchContainer = async () => {
-      const _volumes = await getVolume();
-      console.log(_volumes)
-      setVolumes(_volumes);
-      // console.log(_containers);
+    const fetchVolumes = async () => {
+      try {
+        const _volumes = await getVolumes();
+        setVolumes(_volumes);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching volumes:", error);
+        setLoading(false);
+      }
     };
-    fetchContainer();
-  }, []);
 
+    fetchVolumes();
+  }, []);
   
   if (loading) <Loader />;
 
@@ -100,7 +104,7 @@ const Volumes = () => {
               </tr>
             </thead>
             <tbody>
-              {volumes.map((volume) => (
+              {volumes.Volumes?.map((volume) => (
                 <tr
                   // key={volume._id}
                   className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/80 cursor-pointer"

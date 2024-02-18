@@ -111,3 +111,50 @@ export const getLayer = async(id) =>{
     console.log(err);
   }
 }
+
+
+
+export default async function getTotalUsage() {
+    try {
+        const response = await axios.get('/containers/json');
+        const containers = response.data;
+
+        const systemInfoResponse = await axios.get('/info');
+        const systemInfo = systemInfoResponse.data;
+
+        const totalMemory = systemInfo.memTotal;
+        const totalCpu = systemInfo.NCPU;
+
+        let totalCpuUsage = 0;
+        let totalMemoryUsage = 0;
+
+        for (const container of containers) {
+            const statsResponse = await axios.get(`/containers/${container.Id}/stats`);
+            const stats = statsResponse.data;
+
+            // Calculate CPU usage percentage
+            const cpuUsage = stats.cpu_stats.cpu_usage.total_usage / totalCpu;
+            totalCpuUsage += cpuUsage;
+
+            // Calculate memory usage percentage
+            const memoryUsage = stats.memory_stats.usage / totalMemory;
+            totalMemoryUsage += memoryUsage;
+        }
+
+        console.log('Total CPU Usage Percentage:', totalCpuUsage * 100);
+        console.log('Total Memory Usage Percentage:', totalMemoryUsage * 100);
+
+        return{
+            totalCpuUsage: totalCpuUsage * 100,
+            totalMemoryUsage: totalMemoryUsage * 100
+        
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Call the function to get total usage
+getTotalUsage();
+
+

@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { FaPause , FaPlay} from "react-icons/fa";
 
 
-import {
+import getTotalUsage, {
   getContainers,
   killContainer,
   pauseContainer,
@@ -21,6 +21,8 @@ const Containers = () => {
   const [loading, setLoading] = useState(true);
 
   const [info, setInfo] = useState([]);
+  const [cpuUsage, setCpuUsage] = useState(0);
+  const [memoryUsage, setMemoryUsage] = useState(0);
 
   useEffect(() => {
     const fetchContainer = async () => {
@@ -31,15 +33,24 @@ const Containers = () => {
       console.log(_info);
       setInfo(_info);
     };
+    const fetchUsage = async () => {
+      const _info = await getTotalUsage();
+      setCpuUsage(_info.totalCpuUsage);
+      setMemoryUsage(_info.totalMemoryUsage);
+    };
 
     const interval = setInterval(() => {
       fetchContainer();
     }, 3000);
 
     fetchContainer();
+    fetchUsage();
 
     return () => clearInterval(interval);
   }, []);
+
+
+
 
   if (loading) <Loader />;
 
@@ -62,6 +73,16 @@ const Containers = () => {
           text={"Total No of Pause Containers"}
           count={info.ContainersPaused}
         />
+
+  <ContainersDetails
+          text={"CPU usage"}
+          count={cpuUsage+"$"}
+        />
+               <ContainersDetails
+          text={"Memory usage"}
+          count={memoryUsage+"%"}
+        />
+        
       </div>
       <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg ">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
