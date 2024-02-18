@@ -35,7 +35,7 @@ const Stat = ({
   return (
     <div style={{ width: "100%" }}>
       <h1 className="text-xl font-semibold mb-5">
-        {title}: {data[data.length - 1]?.uv}
+        {title}: {data[data.length - 1]?.usage}
       </h1>
       <ResponsiveContainer width="100%" height={350}>
         <LineChart
