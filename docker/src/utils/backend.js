@@ -2,10 +2,29 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3000";
 
+const DOCKER_URL = "http://localhost:2375/";
+
+console.log("TESTSTTS",DOCKER_URL)
 export const getContainers = async () => {
-  const response = await axios.get("/");
-  console.log(response.data);
-  return response.data;
+
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: 'http://localhost:2375/containers/json',
+    headers: { 
+      'Accept': 'application/json', 
+      'Authorization': 'Basic YWRtaW46YWRtaW4='
+    }
+  };
+  
+  axios.request(config)
+  .then((response) => {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 };
 
 export const getImages = async () => {
