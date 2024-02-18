@@ -8,6 +8,11 @@ export const getContainers = async () => {
   return response.data;
 };
 
+export const getInfo = async () => {
+  const response = await axios.get("/info");
+  return response.data;
+}
+
 export const startContainer = async (id) => {
   await axios.post(`/container/${id}/start`);
 };

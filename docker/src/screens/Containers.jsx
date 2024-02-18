@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import ContainersDetails from "../components/ContainersDetails";
 import {
   getContainers,
   killContainer,
   pauseContainer,
   removeContainer,
   startContainer,
+  getInfo,
 } from "../utils/backend";
 
 const Containers = () => {
@@ -14,11 +16,16 @@ const Containers = () => {
   const [containers, setContainers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [info, setInfo] = useState([]);
+
   useEffect(() => {
     const fetchContainer = async () => {
       const _containers = await getContainers();
       setContainers(_containers);
       console.log(_containers);
+      const _info = await getInfo();
+      console.log(_info);
+      setInfo(_info);
     };
 
     fetchContainer();
@@ -26,8 +33,17 @@ const Containers = () => {
 
   if (loading) <Loader />;
 
+  
   return (
     <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
+      <div className="flex items-center justify-between pb-10">
+        <ContainersDetails  text={"Total No of Containers"} count={info.Containers}/>  
+        <ContainersDetails  text={"Total No of Running Containers"} count={info.ContainersRunning}/>  
+        <ContainersDetails  text={"Total No of Stopped Containers"} count={info.ContainersStopped}/>  
+        <ContainersDetails  text={"Total No of Pause Containers"} count={info.ContainersPaused}/>  
+
+  
+      </div>
       <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg ">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
           <div className="w-full md:w-1/2">

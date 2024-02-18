@@ -277,7 +277,7 @@ app.get("/volume/:id", async (req, res) => {
       if (err) throw err;
       res.send(data);
     });
-  } catch (error) {
+  } catch (error) { 
     res.status(500).send({ error: error.message });
   }
 });
