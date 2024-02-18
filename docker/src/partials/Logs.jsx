@@ -20,7 +20,6 @@ export default function Logs({ containerId }) {
 
   return (
     <div className="bg-black w-full h-full flex p-5  overflow-y-scroll">
-      {/* maintain the color of the logs for errors and utf-8 */}
       <pre className="text-white">{logs}</pre>
     </div>
   );

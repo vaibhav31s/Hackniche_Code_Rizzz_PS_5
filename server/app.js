@@ -35,11 +35,6 @@ app.get("/container/:id", async (req, res) => {
 });
 
 app.get("/container/:id/stats", async (req, res) => {
-  const container = await docker.getContainer(req.params.id);
-  container.stats({ stream: false }, function (err, stream) {
-    res.send(stream);
-  });
-});
   try {
     const container = await docker.getContainer(req.params.id);
     container.stats({ stream: false }, function (err, stream) {
@@ -68,16 +63,6 @@ app.get("/container/:id/logs", async (req, res) => {
     console.log(err);
 
     res.status(500).json({ message: "Error" });
-  }
-});
-  try {
-    const container = await docker.getContainer(req.params.id);
-    container.logs({ stdout: true, stderr: true }, function (err, stream) {
-      if (err) throw err;
-      res.send(stream);
-    });
-  } catch (error) {
-    res.status(500).send({ error: error.message });
   }
 });
 
@@ -133,8 +118,6 @@ app.post("/container/:id/exec", async (req, res) => {
   }
 });
 
-
-
 // //files
 // app.get("/container/:id/files", async (req, res) => {
 //   const container = await docker.getContainer(req.params.id);
@@ -145,8 +128,7 @@ app.post("/container/:id/exec", async (req, res) => {
 // }
 // );
 
-
-app.post("/container/:id/start", async (req, res) => {  
+app.post("/container/:id/start", async (req, res) => {
   try {
     const container = await docker.getContainer(req.params.id);
     container.start(function (err, data) {
@@ -218,7 +200,7 @@ app.post("/container/:id/delete", async (req, res) => {
   }
 });
 
-app.get("/images", async (req, res) => {  
+app.get("/images", async (req, res) => {
   try {
     await docker.listImages(function (err, images) {
       if (err) throw err;
@@ -277,9 +259,6 @@ app.get("/image/:id/layers", async (req, res) => {
   }
 });
 
-
-
-
 app.get("/volumes", async (req, res) => {
   try {
     await docker.listVolumes(function (err, volumes) {
@@ -289,8 +268,7 @@ app.get("/volumes", async (req, res) => {
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
-}
-);
+});
 
 app.get("/volume/:id", async (req, res) => {
   try {
@@ -302,8 +280,7 @@ app.get("/volume/:id", async (req, res) => {
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
-}
-);
+});
 
 //current cpu usage
 app.get("/info", async (req, res) => {
@@ -315,8 +292,7 @@ app.get("/info", async (req, res) => {
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
-}
-);
+});
 //system information
 app.get("/version", async (req, res) => {
   try {
@@ -327,8 +303,7 @@ app.get("/version", async (req, res) => {
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
-}
-);
+});
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);

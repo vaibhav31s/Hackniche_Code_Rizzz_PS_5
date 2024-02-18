@@ -159,3 +159,12 @@ export const getLogs = async (id) => {
     console.log(err);
   }
 };
+
+export const getInspect = async (id) => {
+  try {
+    const response = await axios.get(`/container/${id}/inspect`);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
