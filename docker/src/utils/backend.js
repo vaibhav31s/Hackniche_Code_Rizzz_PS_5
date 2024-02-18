@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { toast} from 'react-toastify';
 axios.defaults.baseURL = "http://localhost:4000";
 
 export const getContainers = async () => {
@@ -14,19 +14,46 @@ export const getInfo = async () => {
 }
 
 export const startContainer = async (id) => {
-  await axios.post(`/container/${id}/start`);
+  await axios.post(`/container/${id}/start`).then((res) => {
+    console.log(res);
+    toast.success("Container started"); 
+  }
+  ).catch((err) => {
+   toast.error("Error starting container");
+  }
+  );
 };
 
 export const pauseContainer = async (id) => {
-  await axios.post(`/container/${id}/pause`);
+  await axios.post(`/container/${id}/pause`).then((res) => {
+    console.log(res);
+    toast.success("Container paused"); 
+  }
+  ).catch((err) => {
+   toast.error("Error pausing container");
+  }
+  );
 };
 
 export const removeContainer = async (id) => {
-  await axios.post(`/container/${id}/remove`);
+  await axios.post(`/container/${id}/remove`).catch((err) => {
+    toast.error("Error removing container");
+  }
+  ).then((res) => { 
+    toast.success("Container removed");
+  }
+  );
 };
 
 export const killContainer = async (id) => {
-  await axios.post(`/container/${id}/kill`);
+  await axios.post(`/container/${id}/kill`).then((res) => {
+    console.log(res);
+    toast.success("Container killed"); 
+  }
+  ).catch((err) => {
+   toast.error("Error killing container");
+  }
+  );
 };
 
 export const getImages = async () => {

@@ -8,6 +8,7 @@ import Info from "./components/Info";
 import Logs from "./components/Logs";
 import Stats from "./components/stats";
 
+
 import Container from "./screens/Container";
 
 export default function App() {
@@ -45,5 +46,6 @@ export default function App() {
     },
   ]);
 
-  return <RouterProvider router={routes} />;
+  return <RouterProvider router={routes}/>
+    ;
 }

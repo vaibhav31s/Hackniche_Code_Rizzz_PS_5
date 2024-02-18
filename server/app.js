@@ -13,10 +13,11 @@ app.use(
 
 app.get("/containers", async (req, res) => {
   try {
-    await docker.listContainers(function (err, containers) {
+    await docker.listContainers({ all: true }, function (err, containers) {
       if (err) throw err;
       res.send(containers);
-    });
+  })
+    
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
