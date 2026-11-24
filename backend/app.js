@@ -43,12 +43,12 @@ app.post("/login", async (req, res) => {
 
   // validate the fields
   if (!(email && password)) {
-    res.status(400).send("All input is required");
+    return res.status(400).send("All input is required");
   }
 
   const user = await User.findOne({ email });
 
-  if (user && bcrypt.compare(password, user.password)) {
+  if (user && (await bcrypt.compare(password, user.password))) {
     const token = jwt.sign(
       {
         userId: user._id,
