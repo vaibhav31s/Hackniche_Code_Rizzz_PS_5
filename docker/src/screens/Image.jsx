@@ -70,7 +70,7 @@ const Image = () => {
                   <td className="px-4 py-3 space-x-2 flex items-center justify-end">
                     {/* Start Button */}
                     <button
-                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
+                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-hidden dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
                       type="button"
                       title="Team"
                       onClick={() =>
@@ -89,7 +89,7 @@ const Image = () => {
 
                     {/* Stop Button */}
                     <button
-                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
+                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600  text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-hidden dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
                       type="button"
                       title="Schedule"
                       onClick={() =>
@@ -109,7 +109,7 @@ const Image = () => {
                     </button>
                     {/* Delete Button */}
                     <button
-                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600 text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
+                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600 text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-hidden dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
                       type="button"
                       title="Edit"
                       onClick={() =>

@@ -57,10 +57,10 @@ const Volumes = () => {
               </div>
             </form>
           </div>
-          <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+          <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 shrink-0">
             <Link
               to={"/tournaments/create"}
-              className="flex items-center justify-center  text-white bg-blue-700  dark:bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2  dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+              className="flex items-center justify-center  text-white bg-blue-700  dark:bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2  dark:hover:bg-primary-700 focus:outline-hidden dark:focus:ring-primary-800"
             >
               <svg
                 className="h-3.5 w-3.5 mr-2"
@@ -123,7 +123,7 @@ const Volumes = () => {
                      
                     {/* Delete Button */}
                     <button
-                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600 text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-none dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
+                      className="inline-flex items-center py-2 px-3 bg-gray-200 dark:bg-gray-600 text-sm font-medium text-center text-white hover:text-gray-800 rounded-lg focus:outline-hidden dark:text-white dark:hover:text-gray-100 space-x-2 cursor-pointer"
                       type="button"
                       title="Edit"
                       onClick={() =>

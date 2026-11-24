@@ -28,7 +28,7 @@ export default function Login() {
             />
             ReservedIn
           </a>
-          <div className="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0  ">
+          <div className="w-full bg-white rounded-lg shadow-sm  md:mt-0 sm:max-w-md xl:p-0  ">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Sign in to your account
@@ -78,7 +78,7 @@ export default function Login() {
                 <button
                   type="submit"
                   onClick={handleSubmit}
-                  className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center   "
+                  className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-hidden focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center   "
                 >
                   Sign in
                 </button>
