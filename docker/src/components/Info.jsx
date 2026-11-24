@@ -1,6 +1,6 @@
 import React from 'react'
 import {data} from "./inspect"
-import ReactJson from 'react-json-view'
+import ReactJson from '@microlink/react-json-view'
 const Info = () => {
   return (
     <div className="">
